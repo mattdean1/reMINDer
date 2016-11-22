@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('lilly-recruitment-demo:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -18,8 +19,28 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
+var fs = require('fs');
+var privateKey  = fs.readFileSync('public/server.key', 'utf8');
+var certificate = fs.readFileSync('public/server.crt', 'utf8');
+var https = require('https');
+var credentials = {key: privateKey, cert: certificate};
 
-var server = http.createServer(app);
+var server = https.createServer(credentials, app);
+
+
+
+    var WebSocketServer = require('ws').Server;
+    var wss = new WebSocketServer({
+        server: server
+      });
+
+    wss.on('connection', function connection(ws) {
+      ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+      });
+
+      ws.send('something');
+    });
 
 /**
  * Listen on provided port, on all network interfaces.

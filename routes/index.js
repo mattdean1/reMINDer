@@ -1,39 +1,39 @@
 var express = require('express');
 var router = express.Router();
 
-var ws_cfg = {
-  ssl: true,
-  port: 8080,
-  ssl_key: 'public/server.key',
-  ssl_cert: 'public/server.crt'
-};
-
-
-var http = require('https');
-var fs = require('fs');
-var server = http.createServer(
-  {key: fs.readFileSync(ws_cfg.ssl_key), cert: fs.readFileSync(ws_cfg.ssl_cert)},
-  function(request, response) {});
-
-server.listen(1234, function() {
-    console.log((new Date()) + ' Server is listening on port 1234');
-});
-var WebSocketServer = require('websocket').server;
-wsServer = new WebSocketServer({
-    httpServer: server
-});
-
-var count = 0;
-var clients = {};
-wsServer.on('request', function(r){
-  var connection = r.accept('echo-protocol', r.origin);
-  // Specific id for this client & increment count
-var id = count++;
-// Store the connection method so we can loop through & contact all clients
-clients[id] = connection;
-console.log((new Date()) + ' Connection accepted [' + id + ']');
-
-});
+// var ws_cfg = {
+//   ssl: true,
+//   port: 8080,
+//   ssl_key: 'public/server.key',
+//   ssl_cert: 'public/server.crt'
+// };
+//
+//
+// var http = require('https');
+// var fs = require('fs');
+// var server = http.createServer(
+//   {key: fs.readFileSync(ws_cfg.ssl_key), cert: fs.readFileSync(ws_cfg.ssl_cert)},
+//   function(request, response) {});
+//
+// server.listen(1234, function() {
+//     console.log((new Date()) + ' Server is listening on port 1234');
+// });
+// var WebSocketServer = require('websocket').server;
+// wsServer = new WebSocketServer({
+//     httpServer: server
+// });
+//
+// var count = 0;
+// var clients = {};
+// wsServer.on('request', function(r){
+//   var connection = r.accept('echo-protocol', r.origin);
+//   // Specific id for this client & increment count
+// var id = count++;
+// // Store the connection method so we can loop through & contact all clients
+// clients[id] = connection;
+// console.log((new Date()) + ' Connection accepted [' + id + ']');
+//
+// });
 
 //get postgres code from heroku docs
 var pg = require('pg');
