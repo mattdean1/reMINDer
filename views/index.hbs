@@ -1,0 +1,30 @@
+<h1>Todo</h1>
+
+<!-- user input fields -->
+<input id="newtitle" type="text" placeholder="title">
+<textarea id="newdescription" placeholder="description" rows="4" cols="50"></textarea>
+<button id="submit" class="btn" onclick="submit()">Submit</button>
+
+<br><br>
+
+<!-- list of todo items -->
+<ul class="collapsible" data-collapsible="accordion">
+  {{#each list}}
+      <li>
+        <div class="collapsible-header">
+          {{#if this.done}}
+            <input type="checkbox" id="{{this.pk_id}}" checked="checked">
+            <label for="{{this.pk_id}}" onclick="update({{this.pk_id}}, {{this.done}})"></label>
+            <strike>{{this.title}}</strike>
+          {{else}}
+            <input type="checkbox" id="{{this.pk_id}}">
+            <label for="{{this.pk_id}}" onclick="update({{this.pk_id}}, {{this.done}})"></label>
+            {{this.title}}
+          {{/if}}
+
+          <button class="btn right" onclick="deleteitem({{this.pk_id}})">Delete</button>
+        </div>
+        <div class="collapsible-body"><p>{{this.description}}</p></div>
+      </li>
+  {{/each}}
+</ul>
