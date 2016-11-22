@@ -26,7 +26,9 @@ console.log((new Date()) + ' Connection accepted [' + id + ']');
 var pg = require('pg');
 pg.defaults.ssl = true;
 
-
+router.get('/client',function(req,res){
+  res.render('client');
+});
 /* GET home page. */
 router.get('/', function(req, res) {
   //initialise empty array for results of db query
