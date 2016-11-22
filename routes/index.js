@@ -4,8 +4,8 @@ var router = express.Router();
 var ws_cfg = {
   ssl: true,
   port: 8080,
-  ssl_key: '/server.key',
-  ssl_cert: '/server.crt'
+  ssl_key: 'public/server.key',
+  ssl_cert: 'public/server.crt'
 };
 
 
