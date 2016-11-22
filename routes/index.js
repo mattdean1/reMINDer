@@ -10,10 +10,11 @@ var ws_cfg = {
 
 
 var http = require('https');
+var fs = require('fs');
 var server = http.createServer(
   {key: fs.readFileSync(ws_cfg.ssl_key), cert: fs.readFileSync(ws_cfg.ssl_cert)},
   function(request, response) {});
-  
+
 server.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
 });
