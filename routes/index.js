@@ -1,10 +1,12 @@
 var express = require('express');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('heroku_klsgm29t:m31k07a3ujdc1pn8a7o1pfrsk6@ds163667.mlab.com:63667/heroku_klsgm29t');
+var collection = db.get('reminders');
+
 module.exports = function(io){
 var router = express.Router();
 
-//get postgres code from heroku docs
-var pg = require('pg');
-pg.defaults.ssl = true;
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -17,87 +19,69 @@ io.on('connection', function(socket){
   });
 });
 
-/* GET home page. */
+
 router.get('/', function(req, res) {
   //initialise empty array for results of db query
   var results = [];
 
-  //connect to postgres database
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-    if (err) throw err;
-    client
-      .query('SELECT * FROM todo ORDER BY pk_id ASC')
-
-      //for each row returned by the query, add it to the array
-      .on('row', function(row) {
-        results.push(row);
-      })
-
-      //when query is finished, render the page, passing in the results of the query
-      .on('end', function(){
-        res.render('index', { list: results });
-      });
+  collection.find({},{},function(e,results){
+      res.render('index', { list: results });
   });
 });
 
 router.get('/patient', function(req, res) {
   //initialise empty array for results of db query
   var results = [];
-
-  //connect to postgres database
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-    if (err) throw err;
-    client
-      .query('SELECT * FROM todo ORDER BY pk_id ASC')
-
-      //for each row returned by the query, add it to the array
-      .on('row', function(row) {
-        results.push(row);
-      })
-
-      //when query is finished, render the page, passing in the results of the query
-      .on('end', function(){
-        res.render('patient', { list: results });
-      });
-  });
+  if(!process.env.DATABASE_URL){
+    res.render('patient', { list: results });
+  }else{
+    collection.find({},{},function(e,results){
+        res.render('index', { list: results });
+    });
+  }
 });
 
 //insert new todo into database
 router.post('/insert', function(req, res) {
-  //connect to database
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-     if (err) throw err;
-     client
-        //insert data using prepared statement
-       .query('INSERT INTO todo (title, description) VALUES ($1, $2)', [req.body.title, req.body.description])
-       .on('end', function(){
-         res.send('success');
-       });
-   });
+  collection.insert({
+          "title" : req.body.title,
+          "description": req.body.description,
+          "done": false
+      }, function (e, doc) {
+          if (e) {
+              res.send(e);
+          }
+          else {
+              res.send('success');
+          }
+      });
 });
 
 //delete a todo item
 router.post('/delete', function(req, res) {
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-     if (err) throw err;
-     client
-       .query('DELETE FROM todo WHERE pk_id='+req.body.id)
-       .on('end', function(){
-         res.send('success');
-       });
-   });
+  collection.remove({_id: req.body.id},
+                        function(e){
+                          if(e){
+                            res.send(e);
+                          }
+                          res.send('success');
+                        }
+      );
 });
 
 //update an item
 router.post('/update', function(req, res) {
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-     if (err) throw err;
-     client
-       .query('UPDATE todo SET done='+req.body.done+' WHERE pk_id='+req.body.id)
-       .on('end', function(){
-         res.send('success');
-       });
-   });
+  collection.update({_id: req.body.id},
+                        {$set:{
+                          'done': req.body.done,
+                        }},
+                        function(e){
+                          if(e){
+                            res.send(e);
+                          }
+                          res.send('success');
+                        }
+      );
 });
 
 return router;

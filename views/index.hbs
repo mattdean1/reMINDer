@@ -8,21 +8,21 @@
 <br><br>
 
 <!-- list of todo items -->
-<ul class="collapsible" data-collapsible="accordion">
+<ul class="collapsible" data-collapsible="accordion" id="list">
   {{#each list}}
       <li>
         <div class="collapsible-header">
           {{#if this.done}}
-            <input type="checkbox" id="{{this.pk_id}}" checked="checked">
-            <label for="{{this.pk_id}}" onclick="update({{this.pk_id}}, {{this.done}})"></label>
+            <input type="checkbox" id="{{this._id}}" checked="checked">
+            <label for="{{this._id}}" onclick="update('{{this._id}}', '{{this.done}}')"></label>
             <strike>{{this.title}}</strike>
           {{else}}
-            <input type="checkbox" id="{{this.pk_id}}">
-            <label for="{{this.pk_id}}" onclick="update({{this.pk_id}}, {{this.done}})"></label>
+            <input type="checkbox" id="{{this._id}}">
+            <label for="{{this._id}}" onclick="update('{{this._id}}', '{{this.done}}')"></label>
             {{this.title}}
           {{/if}}
 
-          <button class="btn right" onclick="deleteitem({{this.pk_id}})">Delete</button>
+          <button class="btn right" onclick="deleteitem('{{this._id}}')">Delete</button>
         </div>
         <div class="collapsible-body"><p>{{this.description}}</p></div>
       </li>

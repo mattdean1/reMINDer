@@ -3,8 +3,11 @@ function submit(){
   var title = $('#newtitle').val();
   var description = $('#newdescription').val();
 
-  var socket = io("https://cryptic-sea-98015.herokuapp.com/");
-  socket.emit('reminder', title);
+  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
+  socket.on('connect', function(){
+    socket.emit('reminder', title);
+  });
+
 
 
   //$.post(url, data, callback)
