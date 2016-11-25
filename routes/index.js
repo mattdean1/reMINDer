@@ -1,7 +1,12 @@
 var express = require('express');
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('heroku_klsgm29t:m31k07a3ujdc1pn8a7o1pfrsk6@ds163667.mlab.com:63667/heroku_klsgm29t');
+if(process.env.MONGODB_URI){
+  var db = monk(process.env.MONGODB_URI);
+}else{
+  var db = monk('localhost/test');
+}
+
 var collection = db.get('reminders');
 
 module.exports = function(io){
@@ -23,7 +28,6 @@ io.on('connection', function(socket){
 router.get('/', function(req, res) {
   //initialise empty array for results of db query
   var results = [];
-
   collection.find({},{},function(e,results){
       res.render('index', { list: results });
   });
@@ -32,13 +36,9 @@ router.get('/', function(req, res) {
 router.get('/patient', function(req, res) {
   //initialise empty array for results of db query
   var results = [];
-  if(!process.env.DATABASE_URL){
-    res.render('patient', { list: results });
-  }else{
     collection.find({},{},function(e,results){
         res.render('patient', { list: results });
     });
-  }
 });
 
 //insert new todo into database
@@ -46,7 +46,7 @@ router.post('/insert', function(req, res) {
   collection.insert({
           "title" : req.body.title,
           "description": req.body.description,
-          "done": 0
+          "done": false
       }, function (e, doc) {
           if (e) {
               res.send(e);
@@ -73,7 +73,7 @@ router.post('/delete', function(req, res) {
 router.post('/update', function(req, res) {
   collection.update({_id: req.body.id},
                         {$set:{
-                          'done': req.body.done,
+                          'done': (req.body.done == 'true'),
                         }},
                         function(e){
                           if(e){

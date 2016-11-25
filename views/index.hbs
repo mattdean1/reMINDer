@@ -14,11 +14,11 @@
         <div class="collapsible-header">
           {{#if this.done}}
             <input type="checkbox" id="{{this._id}}" checked="checked">
-            <label for="{{this._id}}" onclick="update('{{this._id}}', '{{this.done}}')"></label>
+            <label for="{{this._id}}" onclick="update('{{this._id}}', {{this.done}})"></label>
             <strike>{{this.title}}</strike>
           {{else}}
             <input type="checkbox" id="{{this._id}}">
-            <label for="{{this._id}}" onclick="update('{{this._id}}', '{{this.done}}')"></label>
+            <label for="{{this._id}}" onclick="update('{{this._id}}', {{this.done}})"></label>
             {{this.title}}
           {{/if}}
 

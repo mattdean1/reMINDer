@@ -6,11 +6,10 @@ function submit(){
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('connect', function(){
     socket.emit('reminder', title);
-  });
 
-  //$.post(url, data, callback)
-  $.post('/insert', {title: title, description: description}, function(){
-    //location.reload(true);  //reload the page from server (not cache)
+    $.post('/insert', {title: title, description: description}, function(){
+      location.reload(true);  //reload the page from server (not cache)
+    });
   });
 }
 
@@ -28,10 +27,8 @@ function update(id, done){
     checkboxes[i].setAttribute("disabled", "disabled");
   }
 
-  var donebool = (done == 'true');
-
   //$.post(url, data, callback)
-  $.post('/update', {id: id, done: !donebool}, function(){
+  $.post('/update', {id: id, done: !done}, function(){
     location.reload(true);
   });
 }
