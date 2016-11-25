@@ -1,13 +1,6 @@
-<h1>reMINDer - Carer</h1>
+<h1>reMINDer - Patient</h1>
 
-<!-- user input fields -->
-<input id="newtitle" type="text" placeholder="title">
-<textarea id="newdescription" placeholder="description" rows="4" cols="50"></textarea>
-<button id="submit" class="btn" onclick="submit()">Submit</button>
 
-<br><br>
-
-<!-- list of todo items -->
 <ul class="collapsible" data-collapsible="accordion">
   {{#each list}}
       <li>
@@ -28,8 +21,3 @@
       </li>
   {{/each}}
 </ul>
-
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io("https://cryptic-sea-98015.herokuapp.com/");
-</script>

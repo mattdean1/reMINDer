@@ -36,6 +36,28 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/patient', function(req, res) {
+  //initialise empty array for results of db query
+  var results = [];
+
+  //connect to postgres database
+  pg.connect(process.env.DATABASE_URL, function(err, client) {
+    if (err) throw err;
+    client
+      .query('SELECT * FROM todo ORDER BY pk_id ASC')
+
+      //for each row returned by the query, add it to the array
+      .on('row', function(row) {
+        results.push(row);
+      })
+
+      //when query is finished, render the page, passing in the results of the query
+      .on('end', function(){
+        res.render('patient', { list: results });
+      });
+  });
+});
+
 //insert new todo into database
 router.post('/insert', function(req, res) {
   //connect to database
