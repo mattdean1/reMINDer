@@ -36,7 +36,7 @@ router.get('/patient', function(req, res) {
     res.render('patient', { list: results });
   }else{
     collection.find({},{},function(e,results){
-        res.render('index', { list: results });
+        res.render('patient', { list: results });
     });
   }
 });
@@ -46,7 +46,7 @@ router.post('/insert', function(req, res) {
   collection.insert({
           "title" : req.body.title,
           "description": req.body.description,
-          "done": false
+          "done": 0
       }, function (e, doc) {
           if (e) {
               res.send(e);

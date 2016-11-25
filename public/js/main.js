@@ -8,11 +8,9 @@ function submit(){
     socket.emit('reminder', title);
   });
 
-
-
   //$.post(url, data, callback)
   $.post('/insert', {title: title, description: description}, function(){
-    location.reload(true);  //reload the page from server (not cache)
+    //location.reload(true);  //reload the page from server (not cache)
   });
 }
 
@@ -30,8 +28,10 @@ function update(id, done){
     checkboxes[i].setAttribute("disabled", "disabled");
   }
 
+  var donebool = (done == 'true');
+
   //$.post(url, data, callback)
-  $.post('/update', {id: id, done: !done}, function(){
+  $.post('/update', {id: id, done: !donebool}, function(){
     location.reload(true);
   });
 }
