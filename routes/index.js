@@ -41,6 +41,19 @@ router.get('/patient', function(req, res) {
     });
 });
 
+router.get('/reminders', function(req, res) {
+  // get the reminders and return it to alexia to speak
+  var result = [];
+    collection.find({},{},function(e,results){
+        result = results;
+    });
+    var alexiaString = '';
+    for(r in result){
+      alexiaString += r.title + '/n';
+    }
+  res.send('Your Reminders are:'+alexiaString);
+});
+
 //insert new todo into database
 router.post('/insert', function(req, res) {
   collection.insert({
