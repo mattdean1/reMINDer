@@ -46,8 +46,8 @@ router.get('/reminders', function(req, res) {
   var results = [];
     collection.find({},{},function(e,results){
         var alexiaString = '';
-        for(r in result){
-          alexiaString += r.title + '/n';
+        for(var i = 0;i<results.length;i++){
+          alexiaString += results[i].title + '/n';
         }
         res.send('Your Reminders are:'+alexiaString);
     });
