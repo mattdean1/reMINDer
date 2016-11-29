@@ -6,4 +6,4 @@ var server = new AlexaAppServer( {
 
 } );
 
-server.start();
+module.exports = server;
