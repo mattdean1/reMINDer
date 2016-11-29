@@ -2,7 +2,6 @@ var express = require('express');
 var mongo = require('mongodb');
 var monk = require('monk');
 
-server.start();
 if(process.env.MONGODB_URI){
   var db = monk(process.env.MONGODB_URI);
 }else{
