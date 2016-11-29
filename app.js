@@ -6,6 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
+var AlexaAppServer = require( 'alexa-app-server' );
+
+var server = new AlexaAppServer( {
+	httpsEnabled: false,
+	port: process.env.PORT || 80,
+} );
+
+server.start();
 
 
 // view engine setup
