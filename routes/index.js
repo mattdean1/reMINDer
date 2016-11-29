@@ -1,6 +1,14 @@
 var express = require('express');
 var mongo = require('mongodb');
 var monk = require('monk');
+var AlexaAppServer = require( 'alexa-app-server' );
+
+var server = new AlexaAppServer( {
+	httpsEnabled: false,
+	port: process.env.PORT || 80
+} );
+
+server.start();
 if(process.env.MONGODB_URI){
   var db = monk(process.env.MONGODB_URI);
 }else{
