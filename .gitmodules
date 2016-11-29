@@ -1,0 +1,3 @@
+[submodule "apps/AlexiaSkill"]
+	path = apps/AlexiaSkill
+	url = https://github.com/jagribble/AlexaSkill.git
