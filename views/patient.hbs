@@ -24,7 +24,7 @@
   socket.on('reminderpatient', function(title){
     console.log(title);
     responsiveVoice.speak("you have a new reminder, "+title);
-    responsiveVoice.speak("Alexa, what do I need to do today?");
+    responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
     var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
     $('#list').append(li);
