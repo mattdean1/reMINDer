@@ -50,7 +50,7 @@ router.get('/reminders', function(req, res) {
     collection.find({},{},function(e,results){
         var alexiaString = '';
         for(var i = 0;i<results.length;i++){
-          alexiaString += results[i].title + '/n';
+          alexiaString += results[i].title+' ';
         }
         res.send('Your Reminders are:'+alexiaString);
     });
