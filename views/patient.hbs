@@ -35,9 +35,7 @@
     console.log(data.title);
     responsiveVoice.speak("Item "+data.title+', has been deleted!');
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
-
-
-    $('#list').remove(data.id);
+    $(data.id).remove();
   });
 
 </script>
