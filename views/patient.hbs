@@ -3,7 +3,7 @@
 
 <ul class="collapsible" data-collapsible="accordion" id="list">
   {{#each list}}
-      <li>
+      <li id="{{this.title}}">
         <div class="collapsible-header">
           {{#if this.done}}
             <strike>{{this.title}}</strike>
@@ -26,7 +26,7 @@
     responsiveVoice.speak("you have a new reminder, "+title);
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
-    var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
+    var li = $('<li id="'+title'"><div class="collapsible-header">'+title+'</div></li>');
     $('#list').append(li);
   });
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
@@ -36,7 +36,7 @@
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
     var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
-    $('#list').remove(li);
+    $('#list').remove('#'+title);
   });
 
 </script>
