@@ -13,11 +13,11 @@ function submit(){
   });
 }
 
-function deleteitem(id){
+function deleteitem(id,title){
   //$.post(url, data, callback)
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('connect', function(){
-    socket.emit('reminderDeleted', id);
+    socket.emit('reminderDeleted', title);
 
     $.post('/delete', {id: id}, function(){
       location.reload(true);

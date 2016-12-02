@@ -22,7 +22,7 @@
             {{this.title}}
           {{/if}}
 
-          <button class="btn right" onclick="deleteitem('{{this._id}}')">Delete</button>
+          <button class="btn right" onclick="deleteitem('{{this._id}}','{{this.title}}')">Delete</button>
         </div>
         <div class="collapsible-body"><p>{{this.description}}</p></div>
       </li>

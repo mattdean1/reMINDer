@@ -29,4 +29,14 @@
     var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
     $('#list').append(li);
   });
+  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
+  socket.on('patientDeleted', function(title){
+    console.log(title);
+    responsiveVoice.speak("Item "+title+', has been deleted!');
+    responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
+
+    var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
+    $('#list').remove(li);
+  });
+
 </script>
