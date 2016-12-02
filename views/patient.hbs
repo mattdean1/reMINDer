@@ -3,7 +3,7 @@
 
 <ul class="collapsible" data-collapsible="accordion" id="list">
   {{#each list}}
-      <li id="{{this.title}}">
+      <li id="{{this._id}}">
         <div class="collapsible-header">
           {{#if this.done}}
             <strike>{{this.title}}</strike>
