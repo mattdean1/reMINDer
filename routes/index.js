@@ -25,9 +25,9 @@ io.on('connection', function(socket){
     console.log('reminder='+title);
     io.emit('reminderpatient', title);
   });
-  socket.on('reminderDeleted',function(title){
-    console.log('delete='+title);
-    io.emit('patientDeleted',title);
+  socket.on('reminderDeleted',function(data){
+    console.log('delete='+data);
+    io.emit('patientDeleted',data);
   });
 });
 
