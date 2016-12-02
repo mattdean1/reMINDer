@@ -15,9 +15,15 @@ function submit(){
 
 function deleteitem(id){
   //$.post(url, data, callback)
-  $.post('/delete', {id: id}, function(){
-    location.reload(true);
+  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
+  socket.on('connect', function(){
+    socket.emit('reminder', title);
+
+    $.post('/delete', {id: id}, function(){
+      location.reload(true);
+    });
   });
+
 }
 
 function update(id, done){
