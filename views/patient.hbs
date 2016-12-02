@@ -29,8 +29,9 @@
     var li = $('<li id="'+data._id+'"><div class="collapsible-header">'+title+'</div></li>');
     $('#list').append(li);
   });
-  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
+//  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('patientDeleted', function(data){
+    console.log('deleting item!');
     console.log(data.title);
     responsiveVoice.speak("Item "+data.title+', has been deleted!');
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
