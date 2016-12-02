@@ -17,7 +17,7 @@ function deleteitem(id){
   //$.post(url, data, callback)
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('connect', function(){
-    socket.emit('reminder', 'deleted');
+    socket.emit('reminderDeleted', id);
 
     $.post('/delete', {id: id}, function(){
       location.reload(true);
