@@ -22,12 +22,13 @@
 <script>
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('reminderpatient', function(title){
+    if(title!=='deleted'){
     console.log(title);
     responsiveVoice.speak("you have a new reminder, "+title);
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
     var li = $('<li><div class="collapsible-header">'+title+'</div></li>');
     $('#list').append(li);
-
+}
   });
 </script>
