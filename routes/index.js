@@ -21,9 +21,9 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('reminder', function(title){
-    console.log('reminder='+title);
-    io.emit('reminderpatient', title);
+  socket.on('reminder', function(data){
+    console.log('reminder='+data);
+    io.emit('reminderpatient', data);
   });
   socket.on('reminderDeleted',function(data){
     console.log('delete='+data);

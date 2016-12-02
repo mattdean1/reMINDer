@@ -21,12 +21,12 @@
 
 <script>
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
-  socket.on('reminderpatient', function(title){
-    console.log(title);
-    responsiveVoice.speak("you have a new reminder, "+title);
+  socket.on('reminderpatient', function(data){
+    console.log(data.title);
+    responsiveVoice.speak("you have a new reminder, "+data.title);
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
-    var li = $('<li id="'+title+'"><div class="collapsible-header">'+title+'</div></li>');
+    var li = $('<li id="'+data.id+'"><div class="collapsible-header">'+data.title+'</div></li>');
     $('#list').append(li);
   });
 //  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");

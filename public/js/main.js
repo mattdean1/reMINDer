@@ -8,7 +8,7 @@ function submit(){
   //  socket.emit('reminder', title);
 
     $.post('/insert', {title: title, description: description}, function(res){
-      socket.emit('reminder',res._id);
+      socket.emit('reminder',{'title':title,'id':res._id});
       location.reload(true);  //reload the page from server (not cache)
     });
   });
