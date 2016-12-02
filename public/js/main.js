@@ -5,9 +5,10 @@ function submit(){
 
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('connect', function(){
-    socket.emit('reminder', title);
+  //  socket.emit('reminder', title);
 
-    $.post('/insert', {title: title, description: description}, function(){
+    $.post('/insert', {title: title, description: description}, function(res){
+      socket.emit('reminder',res._id);
       location.reload(true);  //reload the page from server (not cache)
     });
   });

@@ -72,7 +72,7 @@ router.post('/insert', function(req, res) {
               res.send(e);
           }
           else {
-              res.send('success');
+              res.send(doc);
           }
       });
 });
