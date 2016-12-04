@@ -17,7 +17,7 @@
 </ul>
 
 
-<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+<script src='/js/responsivevoice.js'></script>
 
 <script>
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
@@ -36,6 +36,10 @@
     responsiveVoice.speak("Item "+data.title+', has been deleted!');
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
     $(data.id).remove();
+  });
+
+  socket.on('patientToggled', function(data){
+    console.log('item toggled' + " title: " + data.title + " id: " + data.id);
   });
 
 </script>

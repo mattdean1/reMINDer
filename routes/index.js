@@ -1,8 +1,11 @@
 var express = require('express');
 var mongo = require('mongodb');
 var monk = require('monk');
-var server = require('../server.js');
-server.start();
+
+if(!process.env.IS_LOCALHOST){
+  var server = require('../server.js');
+  server.start();
+}
 
 if(process.env.MONGODB_URI){
   var db = monk(process.env.MONGODB_URI);
@@ -29,6 +32,10 @@ io.on('connection', function(socket){
     console.log('delete='+data);
     io.emit('patientDeleted',data);
   });
+  socket.on('reminderToggled',function(data){
+    console.log('toggle='+data);
+    io.emit('patientToggled',data);
+  });
 });
 
 
@@ -52,11 +59,11 @@ router.get('/reminders', function(req, res) {
   // get the reminders and return it to alexia to speak
   var results = [];
     collection.find({},{},function(e,results){
-        var alexiaString = '';
+        var alexaString = '';
         for(var i = 0;i<results.length;i++){
-          alexiaString += results[i].title+', ';
+          alexaString += results[i].title+', ';
         }
-        res.send('Your Reminders are:'+alexiaString);
+        res.send('Your Reminders are:'+alexaString);
     });
 
 });
