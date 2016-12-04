@@ -6,8 +6,12 @@
       <li id="{{this._id}}">
         <div class="collapsible-header">
           {{#if this.done}}
+            <input type="checkbox" id="{{this._id}}" checked="checked">
+            <label for="{{this._id}}" onclick="update('{{this._id}}', {{this.done}})"></label>
             <strike>{{this.title}}</strike>
           {{else}}
+            <input type="checkbox" id="{{this._id}}">
+            <label for="{{this._id}}" onclick="update('{{this._id}}', {{this.done}})"></label>
             {{this.title}}
           {{/if}}
         </div>
@@ -26,8 +30,9 @@
     responsiveVoice.speak("you have a new reminder, "+data.title);
     responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
-    var li = $('<li id="'+data.id+'"><div class="collapsible-header">'+data.title+'</div></li>');
-    $('#list').append(li);
+    // var li = $('<li id="'+data.id+'"><div class="collapsible-header">'+data.title+'</div></li>');
+    // $('#list').append(li);
+    location.reload(true);
   });
 //  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('patientDeleted', function(data){
@@ -38,8 +43,9 @@
     $(data.id).remove();
   });
 
-  socket.on('patientToggled', function(data){
-    console.log('item toggled' + " title: " + data.title + " id: " + data.id);
+  socket.on('itemToggled', function(data){
+    console.log('item toggled');
+    location.reload(true);
   });
 
 </script>

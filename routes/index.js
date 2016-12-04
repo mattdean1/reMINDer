@@ -32,10 +32,6 @@ io.on('connection', function(socket){
     console.log('delete='+data);
     io.emit('patientDeleted',data);
   });
-  socket.on('reminderToggled',function(data){
-    console.log('toggle='+data);
-    io.emit('patientToggled',data);
-  });
 });
 
 
@@ -61,7 +57,13 @@ router.get('/reminders', function(req, res) {
     collection.find({},{},function(e,results){
         var alexaString = '';
         for(var i = 0;i<results.length;i++){
-          alexaString += results[i].title+', ';
+          var result = results[i];
+
+          //do not list 'ticked off' reminders
+          if (!result.done){
+            alexaString += results[i].title+', ';
+          }
+
         }
         res.send('Your Reminders are:'+alexaString);
     });
@@ -106,6 +108,7 @@ router.post('/update', function(req, res) {
                           if(e){
                             res.send(e);
                           }
+                          io.emit('itemToggled');
                           res.send('success');
                         }
       );

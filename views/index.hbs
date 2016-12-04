@@ -28,3 +28,13 @@
       </li>
   {{/each}}
 </ul>
+
+<script>
+  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
+
+  socket.on('itemToggled', function(data){
+    console.log('item toggled');
+    location.reload(true);
+  });
+
+</script>
