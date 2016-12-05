@@ -27,19 +27,38 @@
   var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('reminderpatient', function(data){
     console.log(data.title);
-    responsiveVoice.speak("you have a new reminder, "+data.title);
-    responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
 
-    // var li = $('<li id="'+data.id+'"><div class="collapsible-header">'+data.title+'</div></li>');
-    // $('#list').append(li);
-    location.reload(true);
+    //append title to list so looks instant
+    var htmlstring = '<li id="'+data.id+'">';
+    htmlstring +=   '<div class="collapsible-header">';
+    htmlstring +=       '<input type="checkbox" id="'+data.id+'checkbox">';
+    htmlstring +=       '<label for="'+data.id+'checkbox" onclick="update(\''+data.id+'\', false)"></label>';
+    htmlstring +=       data.title;
+    htmlstring +=    '</div>';
+    htmlstring +=    '<div class="collapsible-body"><p>'+data.description+'</p></div>';
+    htmlstring += '</li>';
+
+
+    var li = $(htmlstring);
+    $('#list').append(li);
+
+    //speak to alexa then reload the page so description is loaded
+    responsiveVoice.speak("you have a new reminder, "+data.title, "UK English Female", {rate: 0.9, onend:
+      function(){
+        responsiveVoice.speak("Alexa, ask reminder what are my reminders?", "UK English Female", {rate: 0.9, onend: function(){
+          //location.reload(true)
+        }})
+      }});
+
+
+    //location.reload(true);
   });
 //  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('patientDeleted', function(data){
     console.log('deleting item!');
     console.log(data.title);
-    responsiveVoice.speak("Item "+data.title+', has been deleted!');
-    responsiveVoice.speak("Alexa, ask reminder what are my reminders?");
+    responsiveVoice.speak("Item "+data.title+', has been deleted!', "UK English Female", {rate: 0.8});
+    responsiveVoice.speak("Alexa, ask reminder what are my reminders?", "UK English Female", {rate: 0.8});
     $(data.id).remove();
   });
 
