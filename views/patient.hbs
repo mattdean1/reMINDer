@@ -1,4 +1,4 @@
-<h1>reMINDer - Patient</h1>
+<h1 onclick="responsiveVoice.speak('')">reMINDer - Patient</h1>
 
 
 <ul class="collapsible" data-collapsible="accordion" id="list">
@@ -28,7 +28,7 @@
   socket.on('reminderpatient', function(data){
     console.log(data.title);
 
-    //append title to list so looks instant
+    //create list item to add
     var htmlstring = '<li id="'+data.id+'">';
     htmlstring +=   '<div class="collapsible-header">';
     htmlstring +=       '<input type="checkbox" id="'+data.id+'checkbox">';
@@ -38,20 +38,17 @@
     htmlstring +=    '<div class="collapsible-body"><p>'+data.description+'</p></div>';
     htmlstring += '</li>';
 
-
+    //append list item to page
     var li = $(htmlstring);
     $('#list').append(li);
 
-    //speak to alexa then reload the page so description is loaded
+    //speak to alexa - onend is callback function
     responsiveVoice.speak("you have a new reminder, "+data.title, "UK English Female", {rate: 0.9, onend:
       function(){
         responsiveVoice.speak("Alexa, ask reminder what are my reminders?", "UK English Female", {rate: 0.9, onend: function(){
           //location.reload(true)
         }})
       }});
-
-
-    //location.reload(true);
   });
 //  var socket = io.connect("https://cryptic-sea-98015.herokuapp.com/");
   socket.on('patientDeleted', function(data){
