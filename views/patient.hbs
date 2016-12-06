@@ -1,6 +1,21 @@
-<h1 onclick="responsiveVoice.speak('')">reMINDer - Patient</h1>
+<div class="col s12 m4 hide-on-med-and-up" onclick="responsiveVoice.speak('')">
+  <div class="center-align"><img src="/img/title.png" width="100%"></div>
+  <div class="center-align"><img src="/img/logo.png" width="100%"></div>
+</div>
 
 
+<div class="row valign-wrapper" onclick="responsiveVoice.speak('')">
+  <div class="col s12 m2 l2 hide-on-small-and-down">
+    <div class="center-align"><img src="/img/title.png" width="100%"></div>
+    <div class="center-align"><img src="/img/logo.png" width="100%"></div>
+  </div>
+  <div class="col s12 m8 valign">
+    <h5 class="center-align">Say "Alexa, reMINDer, what are my reminders?"</h5>
+  </div>
+
+</div>
+
+<!-- onclick="responsiveVoice.speak('')" -->
 <ul class="collapsible" data-collapsible="accordion" id="list">
   {{#each list}}
       <li id="{{this._id}}">

@@ -10,3 +10,16 @@ a {
 .collapsible-header {
   padding: 20px;
 }
+
+.btn {
+  background-color: #6A1B9A;
+}
+
+.btn:hover {
+  background-color: #CE93D8;
+}
+
+
+::-webkit-input-placeholder {
+  color: black;
+}
