@@ -65,7 +65,7 @@ router.get('/reminders', function(req, res) {
           }
 
         }
-        res.send('Your Reminders are:'+alexaString);
+        res.send('Your Reminders are '+alexaString);
     });
 
 });
