@@ -21,4 +21,4 @@ Heroku provided an excellent development and hosting environment, while [socket.
 
 ---
 
-We presented the idea to senior management, including a live demo, and recieved excellent feedback on both our presentation skills, and the app itself.
+We presented the idea to senior management (including a live demo!) and got excellent feedback on our presentation skills, our initiative, and the app itself.
