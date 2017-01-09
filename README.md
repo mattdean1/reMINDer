@@ -17,3 +17,8 @@ Carers can also benefit from our app since they can set reminders remotely, whic
 We used Node.js for this project because we were both familiar with the language - [express generator](https://expressjs.com/en/starter/generator.html) was invaluable in getting up and running quickly.
 
 Heroku provided an excellent development and hosting environment, while [socket.io](http://socket.io/) streamlined our setup of WebSockets.
+
+
+---
+
+We presented the idea to senior management, including a live demo, and recieved excellent feedback on both our presentation skills, and the app itself.
